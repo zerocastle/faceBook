@@ -1,0 +1,24 @@
+#container{
+    height: 100vh;
+    display: flex;
+    flex-direction: row; /*메인축을 정의한다*/
+    justify-content: space-between; /*메인축을기준 속성*/
+    align-items: center; /*서브축을 기준 속성*/
+    flex-wrap: wrap;
+}
+
+#container .items:nth-child(1){
+    flex-grow: 3; /*첫번째 자식의 비율은 3으로 두기*/
+    order: 1;
+}
+
+#container .items{
+    flex-grow: 1; /*자식의 기준으로 컨텐츠간의 비율 1대1 로만드는것*/
+    /* width: 200px; */
+    flex-shrink: 1;
+    flex-basis: 0 ;
+    flex: 1;
+    height: 200px;
+    background: skyblue;
+}
+
