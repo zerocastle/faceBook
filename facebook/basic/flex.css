@@ -1,0 +1,18 @@
+
+
+/*부모 flex*/
+#container{
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* flex- start , space-between , center , flex-end*/
+    align-items: center;
+    flex-wrap : wrap; 
+    align-content: space-between;
+}
+
+.items{
+    width: 200px;
+    height: 200px;
+    background-color: deepskyblue;
+}
