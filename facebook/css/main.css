@@ -18,7 +18,7 @@
     /* background-color: tomato; */
     position: fixed;
     top: 52px;
-    left: 300px;
+    /* left: 300px; */
     font-size: 13px;
     
 }
@@ -363,7 +363,7 @@
     width: 308px;
     background: #fff;
     position: fixed;
-    right: 550px;
+    /* right: 550px; */
     top: 52px;
     border-radius: 3px;
     padding-bottom: 20px;
