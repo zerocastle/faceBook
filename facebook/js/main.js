@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const bell = document.querySelector('.bell');
     const leftBox = document.querySelector('.left_box');
     const rightBox = document.querySelector('.right_box');
-    const feed = document.querySelector('#content_container');
+    const feed = document.querySelector('#contents_container');
 
     console.log(bell);
 
@@ -11,6 +11,20 @@ window.addEventListener('DOMContentLoaded', function () {
 
         console.log('bell 클릭');
         this.classList.toggle('on');
+    }
+
+    function callMoreAjax(paperValue){
+
+        $.ajax({
+                type: 'GET',
+                data: paperValue,
+                url: 'data/post.html',
+                dataType: 'html',
+                success: (response) => {
+                    feed.insertAdjacentHTML('beforeend', response);
+                }
+            })
+
     }
 
     function scrollFunc() {
@@ -21,7 +35,17 @@ window.addEventListener('DOMContentLoaded', function () {
         let scrollHeight = window.pageYOffset + window.innerHeight;
 
         if (scrollHeight >= documentHeight) {
+
+            let paper = document.querySelector('#page');
+            let paperValue = document.querySelector('#page').value;
+            
+            paper.value = parseInt(paperValue) + 1;
+
             console.log('end');
+            
+
+            callMoreAjax(paperValue);
+
         }
 
         console.log(window.pageYOffset);
@@ -43,17 +67,86 @@ window.addEventListener('DOMContentLoaded', function () {
         console.log('resize');
     }
 
-    function delegation(e){
+    function delegation(e) {
         let elem = e.target;
-
         console.log(elem);
+        let elemName = elem.getAttribute('data-name');
+        console.log(elemName);
 
-        // if(elem)
+        while (!elem.getAttribute('data-name')) {
+            elem = elem.parentNode;
+            if (elem.nodeName == 'BODY') {
+                elem = null;
+                return;
+            }
+        }
+
+        if (elem.matches('[data-name="like"]')) {
+            console.log('좋아요 !');
+            elem.classList.toggle('active');
+            let pk = elem.getAttribute('data-name');
+
+            $.ajax({
+                type: 'GET',
+                url: 'data/like.json',
+                data: { pk },
+                dataType: 'json',
+                success: (response) => {
+                    let counter = document.querySelector('#like-count-37');
+                    counter.innerHTML = response.like_count;
+                }
+            })
+
+        } else if (elem.matches('[data-name="more"]')) {
+            console.log('모어어');
+            elem.classList.toggle('active');
+        } else if (elem.matches('[data-name="send"]')) {
+            console.log('send');
+            let pk = elem.getAttribute('data-name');
+
+            /*
+                
+                insertAdjacentElement => insertAdjacentHTML
+            */
+            $.ajax({
+                type: 'GET',
+                url: 'data/comment.html',
+                data: { pk },
+                dataType: 'html',
+
+                success: (response) => {
+                    document.querySelector('#comment_container').insertAdjacentHTML('beforeend', response);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+
+        } else if (elem.matches('[data-name="delete"]')) {
+            let pk = elem.getAttribute('data-name');
+
+            if (confirm('정말 삭제 하시겠습니까?') === true) {
+                $.ajax({
+                    type: 'GET',
+                    url: 'data/delete.json',
+                    data: { pk },
+                    dataType: 'json',
+                    success: (response) => {
+                        if (response.status == "success") {
+                            let deleteDom = document.querySelector('.comment-57');
+                            deleteDom.remove();
+                            alert(response.message);
+                        }
+                    }
+                })
+            }
+
+        }
 
     }
 
     bell.addEventListener('click', notification);
-    feed.addEventListener('click' , delegation)
+    feed.addEventListener('click', delegation);
 
     window.addEventListener('scroll', scrollFunc);
     window.addEventListener('resize', resizeFunc);

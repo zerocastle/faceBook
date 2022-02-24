@@ -279,6 +279,10 @@
     border-bottom: 1px solid ;
 }
 
+.contents .btn_container .like_btn.active span{
+    background: url("../imgs/bg05.png")no-repeat 0 -422px;
+}
+
 .contents .btn_container > div{
     flex: 1;
     display: flex;
@@ -295,6 +299,12 @@
     padding: 10px 20px;
     color: var(--fds-fb-blue-75);
 
+}
+
+.contents .comment_container .delete{
+    margin-left: auto;
+
+    cursor: pointer;
 }
 
 .contents .comment_container > .id{
