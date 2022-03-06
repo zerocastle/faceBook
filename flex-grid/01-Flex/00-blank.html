@@ -1,13 +1,56 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>CSS Flex</title>
 	<link rel="stylesheet" href="default.css">
+	<style>
+		.flex-container {
+			display: flex;
+			/* flex-direction: column; */
+			/* height: 80vh; */
+			align-items: center;
+		}
+
+		.flex-item{
+			opacity: 0.8; 
+		}
+
+		.flex-item:nth-child(1) {
+			transform: scale(1.5);
+			z-index: 1;
+		}
+
+		.flex-item:nth-child(2) {
+			/* align-self: start; */
+			transform: scale(2);
+			z-index: 2;
+		}
+
+		.flex-item:nth-child(3) {
+			/* align-self: end; */
+			transform: scale(3);
+		}
+
+		.flex-item:nth-child(4) {
+			/* align-self: stretch; */
+		}
+	</style>
 </head>
+
 <body>
-	
+
+	<div class="flex-container">
+
+		<div class="flex-item">A</div>
+		<div class="flex-item">B</div>
+		<div class="flex-item">C</div>
+		<div class="flex-item">d</div>
+
+	</div>
 </body>
+
 </html>
